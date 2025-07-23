@@ -1,0 +1,58 @@
+📘 Lab: Basic Network Diagram  International Branches
+Lab Objective:
+To design a basic network diagram in Cisco Packet Tracer that visually represents a multinational company with three international branches:
+
+Tokyo
+
+London
+
+Washington
+
+This is a visual exercise only no IP addressing or device configuration is required. The focus is to understand the physical layout and logical grouping of international networks.
+
+ Devices Required (Per Branch):
+1 Router
+
+1 Switch
+
+2 End Devices (e.g., PCs or Laptops)
+
+1 Cloud device (to represent the Internet/WAN)
+
+📝 Instructions:
+1. Launch Cisco Packet Tracer
+Open Cisco Packet Tracer and prepare a new project file.
+
+2. Create Three Branches
+Each branch should include:
+
+1 Router connected to a Switch.
+
+2 End Devices (PCs or Laptops) connected to the Switch.
+
+Connect the Router to a Cloud device to represent the internet.
+
+Label each section as:
+
+🏢 Tokyo Branch
+
+🏢 London Branch
+
+🏢 Washington Branch
+
+3. Connect All Branches to the Cloud
+Place one central Cloud (Internet) device in the middle.
+
+Connect each branch's router to this Cloud using straight-through cables (or simulate WAN links as you prefer).
+
+This represents that all branches are remotely connected via a global network (e.g., the internet or MPLS).
+
+4. Organize and Label
+Use labels to name routers, PCs, switches, and each branch clearly.
+
+Arrange branches left (Tokyo), center (London), and right (Washington) for visual balance and connect them the Head office
+
+✅ Outcome:
+At the end of this lab, you will have a clean, professional-looking network topology showing how three international branches connect to each other logically over a shared cloud (internet).
+
+No configurations are required. This is purely a topology design exercise.
