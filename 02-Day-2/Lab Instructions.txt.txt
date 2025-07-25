@@ -1,0 +1,69 @@
+Objective:
+Learn how to manually configure IP addresses.
+
+Lab Steps:
+Step 1: Open Cisco Packet Tracer and Set Up the Network Topology
+Open Cisco Packet Tracer.
+
+From the bottom-left device types panel:
+
+Drag 1 PC (found in End Devices).
+
+Drag 1 Switch (e.g., 2960 from Switches).
+
+Drag 1 Router (e.g., Router-PT or 1841 from Routers).
+
+Now connect them:
+
+Use Copper Straight-Through cable (light orange wire icon).
+
+PC → Switch: Connect from PC’s FastEthernet0 to Switch’s FastEthernet0/1.
+
+Switch → Router: Connect from Switch’s FastEthernet0/2 to Router’s GigabitEthernet0/0 or FastEthernet0/0, depending on router model.
+
+📌 Goal: Create a simple network:
+PC <--> Switch <--> Router
+
+Step 2: Configure Static IP Address on PC
+Click on the PC and open the Desktop tab.
+
+Click on IP Configuration and set the static IP address:
+
+IP Address: 192.168.1.10
+
+Subnet Mask: 255.255.255.0
+
+Default Gateway: 192.168.1.1
+
+Click on the OK button to apply the settings.
+
+Step 3: Configure Router's Interface with Static IP
+Click on the Router and open the CLI tab.
+
+In the CLI, enter the following commands:
+
+enable
+
+configure terminal
+
+interface gigabitEthernet0/0 (or fastEthernet0/0 depending on router model)
+
+ip address 192.168.1.1 255.255.255.0
+
+no shutdown
+
+Press Enter after each command and save your configuration.
+
+Step 4: Test the Network Connectivity
+Go to the PC and open the Command Prompt.
+
+Type the following command to check if the PC can reach the router:
+
+ping 192.168.1.1
+
+If successful, the configuration is correct.
+
+Step 5: Conclusion
+You have successfully configured a static IP address on a PC and router interface.
+
+This setup demonstrates basic network connectivity between devices using static IP addresses.
