@@ -7,7 +7,7 @@ Open Cisco Packet Tracer.
 
 From the bottom-left device types panel:
 
-Drag 1 PC (found in End Devices).
+Drag 2 PC's (found in End Devices).
 
 Drag 1 Switch (e.g., 2960 from Switches).
 
