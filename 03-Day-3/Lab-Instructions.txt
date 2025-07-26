@@ -1,0 +1,76 @@
+Day 3: Introduction to Switch Configuration
+Objective: Perform basic switch setup using the CLI in a network environment.
+
+Lab Topology:
+Devices Required:
+
+1 Cisco Switch (e.g., 2960)
+
+3 PC's
+
+Cables:
+
+1 Console Cable (PC to Switch)
+
+1 Straight-Through Ethernet Cable (PC to Switch FastEthernet port)
+
+Step-by-Step Instructions:
+1. Access the Switch via Console
+
+Open Terminal from the PC.
+Connect to the switch using the console cable.
+
+2. Enter Privileged EXEC Mode
+
+type the command : "enable" for entering the enable mode
+
+Switch> enable
+3. Enter Global Configuration Mode
+type the command : "configure terminal" for entering the Global Configuration mode
+
+Switch# configure terminal
+4. Set the Switch Hostname
+Switch(config)# hostname LabSwitch
+
+5. Set Console Access Password
+
+LabSwitch(config)# line console 0
+LabSwitch(config-line)# password cisco
+LabSwitch(config-line)# login
+LabSwitch(config-line)# exit
+
+
+6. Set Enable Mode Password
+LabSwitch(config)# enable password class
+
+
+7. Configure Management IP Address on VLAN 1
+
+LabSwitch(config)# interface vlan 1
+LabSwitch(config-if)# ip address 192.168.1.2 255.255.255.0
+LabSwitch(config-if)# no shutdown
+LabSwitch(config-if)# exit
+8. Set Default Gateway (Optional if remote access is needed)
+
+LabSwitch(config)# ip default-gateway 192.168.1.1
+
+
+
+9. Save the Configuration
+LabSwitch# copy running-config startup-config
+
+
+
+10. Verify Configuration
+Assign the following to the PC:
+IP Address: 192.168.1.10
+IP Address: 192.168.1.11
+Subnet Mask: 255.255.255.0
+
+Connect the PC to any active FastEthernet port on the switch.
+
+Ping the switch:
+ping 192.168.1.2
+
+End of Lab
+Result: The switch is configured with a hostname, secured console access, a management IP, and persistent saved settings.
