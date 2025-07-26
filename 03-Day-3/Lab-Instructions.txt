@@ -21,14 +21,13 @@ Open Terminal from the PC.
 Connect to the switch using the console cable.
 
 2. Enter Privileged EXEC Mode
-
 type the command : "enable" for entering the enable mode
-
 Switch> enable
+
 3. Enter Global Configuration Mode
 type the command : "configure terminal" for entering the Global Configuration mode
-
 Switch# configure terminal
+
 4. Set the Switch Hostname
 Switch(config)# hostname LabSwitch
 
@@ -41,17 +40,17 @@ LabSwitch(config-line)# exit
 
 
 6. Set Enable Mode Password
-LabSwitch(config)# enable password class
+LabSwitch(config)# enable password cisco-switch
 
 
 7. Configure Management IP Address on VLAN 1
-
 LabSwitch(config)# interface vlan 1
 LabSwitch(config-if)# ip address 192.168.1.2 255.255.255.0
 LabSwitch(config-if)# no shutdown
 LabSwitch(config-if)# exit
-8. Set Default Gateway (Optional if remote access is needed)
 
+
+8. Set Default Gateway (Optional if remote access is needed)
 LabSwitch(config)# ip default-gateway 192.168.1.1
 
 
