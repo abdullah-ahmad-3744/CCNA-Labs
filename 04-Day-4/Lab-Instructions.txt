@@ -1,0 +1,78 @@
+ Day 4 : Introduction to Switch Configuration
+Objective:
+To perform basic configuration of a Cisco switch using the CLI (Command Line Interface) to enable secure and manageable access to the network device.
+
+Lab Requirements:
+Cisco Switch (physical or simulated via Cisco Packet Tracer/GNS3)
+
+Console cable or console terminal access (e.g., Packet Tracer terminal, PuTTY)
+
+IP addressing information
+Basic understanding of Cisco IOS CLI
+
+Instructions:
+Step 1: Access the Switch via Console
+Power on the switch.
+Access the CLI using a terminal emulator or the built-in console in Cisco Packet Tracer.
+
+Enter privileged EXEC mode:
+Switch> enable
+
+
+Step 2: Enter Global Configuration Mode
+Switch# configure terminal
+
+Step 3: Set the Hostname
+Assign a recognizable name to the switch for identification.
+Switch(config)# hostname LabSwitch
+
+
+Step 4: Configure Console Access Password
+Set a password for console access to restrict physical access to the switch:
+LabSwitch(config)# line console 0
+LabSwitch(config-line)# password cisco
+LabSwitch(config-line)# login
+LabSwitch(config-line)# exit
+
+
+Step 5: Configure Enable Secret Password
+Secure privileged EXEC mode with an encrypted password:
+LabSwitch(config)# enable secret class
+
+
+Step 6: Configure VTY Line Password (Telnet/SSH Access)
+Enable password protection for remote terminal (VTY) sessions:
+LabSwitch(config)# line vty 0 4
+LabSwitch(config-line)# password cisco
+LabSwitch(config-line)# login
+LabSwitch(config-line)# exit
+
+
+
+Step 7: Assign IP Address to VLAN 1 Interface
+Configure the switch's management IP address on VLAN 1:
+LabSwitch(config)# interface vlan 1
+LabSwitch(config-if)# ip address 192.168.1.10 255.255.255.0
+LabSwitch(config-if)# no shutdown
+LabSwitch(config-if)# exit
+
+
+
+Step 8: Save the Configuration
+Save the running configuration to the startup configuration file:
+LabSwitch# copy running-config startup-config
+
+Verification Commands (Optional but Recommended)
+Use the following commands to verify your configuration:
+Display IP configuration:
+LabSwitch# show ip interface brief
+
+
+View VLAN configuration:
+LabSwitch# show vlan brief
+Check saved configuration:
+LabSwitch# show statrup-config
+
+
+Expected Outcome:
+By the end of this lab, your switch should be securely configured with basic settings such as hostname, passwords, remote access IP, and saved configurations. This allows for both local and remote management of the device.
