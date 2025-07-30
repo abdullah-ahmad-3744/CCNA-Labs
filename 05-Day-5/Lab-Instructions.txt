@@ -52,37 +52,10 @@ This is useful when the auto-negotiation fails or specific settings are needed.
 
 
 
-8. Enable Port Security:
-Set basic port security to limit the number of MAC addresses learned on the port:
-Switch(config-if)# switchport port-security
-Switch(config-if)# switchport port-security maximum 2
-Switch(config-if)# switchport port-security violation restrict
-Explanation: This restricts the port to a maximum of 2 MAC addresses and will restrict traffic if more addresses are learned.
-
-
-
-
-9. Exit Configuration Mode:
-After configuration, exit to return to global mode:
-Switch(config-if)# exit
-Switch(config)# exit
-
-
-
-10. Verify Port Status and Configuration:
-Use the following command to confirm the current status of all interfaces:
-Switch# show interfaces status
-To verify a specific port’s configuration:
-Switch# show running-config interface fastethernet 0/1
-To check port security settings:
-Switch# show port-security interface fastethernet 0/1
-
-
 
 Expected Results:
 The selected port will be administratively disabled and re-enabled.
 The port will have an updated description, and speed/duplex settings will be applied.
-Port security will be activated, restricting the number of MAC addresses allowed.
 All changes will be reflected when verifying port status and configuration.
 
 
