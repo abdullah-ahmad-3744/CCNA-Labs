@@ -1,0 +1,92 @@
+ Day 5 :  Configure Switch Ports
+Objective:
+ Practice enabling and disabling switch ports on a Cisco switch using the command-line interface (CLI), along with additional configurations such as port descriptions, speed/duplex settings, and basic port security.
+
+Lab Environment Requirements:
+Cisco switch (physical or simulated using Cisco Packet Tracer, GNS3, or similar tool)
+
+Console access to the switch
+erminal software (e.g., PuTTY, Tera Term, or built-in simulator terminal)
+
+Lab Tasks:
+1. Access the Switch:
+Connect to the switch via console or terminal.
+
+Enter privileged EXEC mode:
+Switch> enable
+
+
+2. Enter Global Configuration Mode:
+Enter configuration mode:
+Switch# configure terminal
+
+
+3. Select a Specific Interface to Configure:
+Replace 0/1 with the actual port number if needed:
+Switch(config)# interface fastethernet 0/1
+
+
+4. Disable the Port:
+Administratively shut down the selected interface:
+Switch(config-if)# shutdown
+
+
+
+5. Enable the Port:
+Reactivate the interface:
+Switch(config-if)# no shutdown
+
+
+
+6. Configure a Port Description:
+Add a description to the port to identify its function:
+Switch(config-if)# description Server Connection
+
+
+
+7. Set Speed and Duplex:
+Manually set the port speed and duplex mode (for instance, to 100 Mbps Full Duplex):
+Switch(config-if)# speed 100
+Switch(config-if)# duplex full
+This is useful when the auto-negotiation fails or specific settings are needed.
+
+
+
+8. Enable Port Security:
+Set basic port security to limit the number of MAC addresses learned on the port:
+Switch(config-if)# switchport port-security
+Switch(config-if)# switchport port-security maximum 2
+Switch(config-if)# switchport port-security violation restrict
+Explanation: This restricts the port to a maximum of 2 MAC addresses and will restrict traffic if more addresses are learned.
+
+
+
+
+9. Exit Configuration Mode:
+After configuration, exit to return to global mode:
+Switch(config-if)# exit
+Switch(config)# exit
+
+
+
+10. Verify Port Status and Configuration:
+Use the following command to confirm the current status of all interfaces:
+Switch# show interfaces status
+To verify a specific port’s configuration:
+Switch# show running-config interface fastethernet 0/1
+To check port security settings:
+Switch# show port-security interface fastethernet 0/1
+
+
+
+Expected Results:
+The selected port will be administratively disabled and re-enabled.
+The port will have an updated description, and speed/duplex settings will be applied.
+Port security will be activated, restricting the number of MAC addresses allowed.
+All changes will be reflected when verifying port status and configuration.
+
+
+
+Troubleshooting Tips:
+If the port does not come back online after running no shutdown, verify that the physical cable is connected and that the device on the other side is powered on.
+If the interface status is "err-disabled," check for errors related to port security violations or other configuration issues.
