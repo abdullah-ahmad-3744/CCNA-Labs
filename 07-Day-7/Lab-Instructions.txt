@@ -44,8 +44,8 @@ Step 6: Set Enable Mode Password
 Go to the global config mode and : 
 PTCL(config)# enable password class
 
-Step 7: Go to Interface Configuration Mode for Serial0/0/0
-PTCL(config)# interface Serial0/0/0
+Step 7: Go to Interface Configuration Mode for Serial0/1/0
+PTCL(config)# interface Serial0/1/0
 PTCL(config-if)#
 
 Step 8: Assign IP Address to the Serial Interface
@@ -87,8 +87,8 @@ Step 6: Set Enable Mode Password
 Go to the global config mode and : 
 MOB(config)# enable password class
 
-Step 7: Go to Interface Configuration Mode for Serial0/0/0
-MOB(config)# interface Serial0/0/0
+Step 7: Go to Interface Configuration Mode for Serial0/2/0
+MOB(config)# interface Serial0/2/0
 MOB(config-if)#
 
 Step 8: Assign IP Address to the Serial Interface
