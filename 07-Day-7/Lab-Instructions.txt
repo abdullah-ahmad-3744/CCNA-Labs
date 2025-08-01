@@ -34,20 +34,30 @@ Step 4: Change the router name
 Router(config)# hostname PTCL
 PTCL(config)#
 
-Step 5: Go to Interface Configuration Mode for Serial0/0/0
+Step 5: Set Console Password
+PTCL(config)# line console 0
+PTCL(config-line)# password cisco
+PTCL(config-line)# login
+PTCL(config-line)# exit
+
+Step 6: Set Enable Mode Password
+Go to the global config mode and : 
+PTCL(config)# enable password class
+
+Step 7: Go to Interface Configuration Mode for Serial0/0/0
 PTCL(config)# interface Serial0/0/0
 PTCL(config-if)#
 
-Step 6: Assign IP Address to the Serial Interface
+Step 8: Assign IP Address to the Serial Interface
 PTCL(config-if)# ip address 10.0.0.1 255.255.255.252
 
-Step 7: Set Clock Rate (Only on DCE side)
+Step 9: Set Clock Rate (Only on DCE side)
 PTCL(config-if)# clock rate 64000
 
-Step 8: Enable the Interface
+Step 10: Enable the Interface
 PTCL(config-if)# no shutdown
 
-Step 9: Exit Interface Mode and Global Config Mode
+Step 11: Exit Interface Mode and Global Config Mode
 PTCL(config-if)# exit
 PTCL(config)# exit
 
