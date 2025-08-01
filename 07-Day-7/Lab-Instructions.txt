@@ -1,0 +1,118 @@
+CCNA Day-07 Lab: Router-to-Router Communication (PTCL ↔ MOB)
+
+
+Objective
+To configure two routers (PTCL and MOB) to communicate directly using a serial connection in Cisco Packet Tracer. You'll assign IP addresses to serial interfaces, apply the necessary clock rate, and verify connectivity using ping.
+
+Step-by-Step Lab Instructions
+
+Step 1: Place Two Routers
+Open Cisco Packet Tracer.
+Drag two Cisco 2811 routers onto the workspace.
+Rename one router to PTCL and the other to MOB.
+
+Step 2: Connect the Routers
+Use a Serial DCE cable (choose the one with a clock icon).
+Connect Serial0/0/0 of PTCL to Serial0/0/0 of MOB.
+Make sure the DCE end is on the PTCL router.
+
+Router Configuration
+Configuring PTCL Router
+
+Step 1: Go to User EXEC Mode (default when you open CLI)
+Router>
+
+Step 2: Go to Privileged EXEC Mode
+Router> enable
+Router#
+
+Step 3: Go to Global Configuration Mode
+Router# configure terminal
+Router(config)#
+
+Step 4: Change the router name
+Router(config)# hostname PTCL
+PTCL(config)#
+
+Step 5: Go to Interface Configuration Mode for Serial0/0/0
+PTCL(config)# interface Serial0/0/0
+PTCL(config-if)#
+
+Step 6: Assign IP Address to the Serial Interface
+PTCL(config-if)# ip address 10.0.0.1 255.255.255.252
+
+Step 7: Set Clock Rate (Only on DCE side)
+PTCL(config-if)# clock rate 64000
+
+Step 8: Enable the Interface
+PTCL(config-if)# no shutdown
+
+Step 9: Exit Interface Mode and Global Config Mode
+PTCL(config-if)# exit
+PTCL(config)# exit
+
+Configuring MOB Router
+Step 1: Go to User EXEC Mode (default)
+Router>
+
+Step 2: Go to Privileged EXEC Mode
+Router> enable
+Router#
+
+Step 3: Go to Global Configuration Mode
+Router# configure terminal
+Router(config)#
+
+Step 4: Change the router name
+Router(config)# hostname MOB
+MOB(config)#
+
+Step 5: Go to Interface Configuration Mode for Serial0/0/0
+MOB(config)# interface Serial0/0/0
+MOB(config-if)#
+
+Step 6: Assign IP Address to the Serial Interface
+MOB(config-if)# ip address 10.0.0.2 255.255.255.252
+
+Step 7: Enable the Interface
+MOB(config-if)# no shutdown
+
+Step 8: Exit Interface Mode and Global Config Mode
+MOB(config-if)# exit
+MOB(config)# exit
+
+Testing Connectivity
+Once both routers are configured, test the connection.
+
+From PTCL Router
+Step 1: Go to User EXEC Mode (default)
+PTCL>
+
+Step 2: Go to Privileged EXEC Mode
+PTCL> enable
+PTCL#
+
+Step 3: Ping MOB's Serial IP
+PTCL# ping 10.0.0.2
+
+From MOB Router
+Step 1: Go to User EXEC Mode (default)
+MOB>
+
+Step 2: Go to Privileged EXEC Mode
+MOB> enable
+MOB#
+
+Step 3: Ping PTCL's Serial IP
+MOB# ping 10.0.0.1
+
+Result
+Routers are able to successfully ping each other.
+Serial interfaces are up and correctly configured.
+Basic router-to-router communication is successfully established.
+
+Concepts Practiced
+Router interface configuration
+Serial (DCE/DTE) cabling and clock rate
+Global and interface configuration modes
+Testing router communication with ping
