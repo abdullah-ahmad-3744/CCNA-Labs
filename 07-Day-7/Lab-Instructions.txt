@@ -77,17 +77,27 @@ Step 4: Change the router name
 Router(config)# hostname MOB
 MOB(config)#
 
-Step 5: Go to Interface Configuration Mode for Serial0/0/0
+Step 5: Set Console Password
+MOB(config)# line console 0
+MOB(config-line)# password cisco
+MOB(config-line)# login
+MOB(config-line)# exit
+
+Step 6: Set Enable Mode Password
+Go to the global config mode and : 
+MOB(config)# enable password class
+
+Step 7: Go to Interface Configuration Mode for Serial0/0/0
 MOB(config)# interface Serial0/0/0
 MOB(config-if)#
 
-Step 6: Assign IP Address to the Serial Interface
+Step 8: Assign IP Address to the Serial Interface
 MOB(config-if)# ip address 10.0.0.2 255.255.255.252
 
-Step 7: Enable the Interface
+Step 9: Enable the Interface
 MOB(config-if)# no shutdown
 
-Step 8: Exit Interface Mode and Global Config Mode
+Step 10: Exit Interface Mode and Global Config Mode
 MOB(config-if)# exit
 MOB(config)# exit
 
