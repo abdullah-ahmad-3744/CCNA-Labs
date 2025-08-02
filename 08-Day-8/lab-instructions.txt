@@ -36,7 +36,7 @@ Enter Serial Interface Mode
 Access Serial0/1/0 interface
 PTCL(config)# interface Serial0/1/0
 Assign IP Address for communication
-PTCL(config-if)# ip address 10.10.10.1 255.255.255.252
+PTCL(config-if)# ip address 192.168.1.1 255.255.255.0
 
 
 Set Clock Rate (DCE side only) Provide clock signal to DTE
@@ -71,9 +71,9 @@ Set Enable Password
 MOB(config)# enable password class
 
 Enter Serial Interface Mode
-MOB(config)# interface Serial0/2/0
+MOB(config)# interface Serial0/3/0
 Assign IP Address
-MOB(config-if)# ip address 10.10.10.2 255.255.255.252
+MOB(config-if)# ip address 192.168.1.2 255.255.255.0
 Enable the Interface
 MOB(config-if)# no shutdown
 Exit to Privileged Mode
