@@ -1,0 +1,131 @@
+CCNA Day-08 Lab (Part 1)
+
+To simulate and analyze two interface status scenarios on Cisco routers:
+1. up/up < ================ > up/up both routers are fully operational
+2. administratively down/down on PTCL < ============= > down/down on MOB — simulating an interface manually shut down
+
+Lab Topology Overview
+Devices: 2 Routers — PTCL and MOB
+Cable: Serial DCE cable
+Interfaces Used: PTCL (Serial0/1/0), MOB (Serial0/2/0)
+
+Scenario 1: Interface is up/up on both routers
+
+On Router PTCL
+Enter Privileged EXEC Mode to Access advanced commands
+Router> enable
+
+Enter Global Configuration Mode for permanent changes
+Router# configure terminal
+
+Set Hostname to PTCL for identification
+Router(config)# hostname PTCL
+
+Set Console Line Password . Secure CLI access via console
+PTCL(config)# line console 0
+PTCL(config-line)# password cisco
+PTCL(config-line)# login
+PTCL(config-line)# exit
+
+
+Set Enable Password to Protect access to privileged mode
+PTCL(config)# enable password class
+
+
+Enter Serial Interface Mode
+Access Serial0/1/0 interface
+PTCL(config)# interface Serial0/1/0
+Assign IP Address for communication
+PTCL(config-if)# ip address 10.10.10.1 255.255.255.252
+
+
+Set Clock Rate (DCE side only) Provide clock signal to DTE
+PTCL(config-if)# clock rate 64000
+
+
+Enable the Interface Bring the interface up
+PTCL(config-if)# no shutdown 
+Exit to Privileged Mode Close config modes
+PTCL(config-if)# exit
+PTCL(config)# exit
+
+
+On Router MOB
+Enter Privileged EXEC Mode
+Router> enable
+Enter Global Configuration Mode
+Router# configure terminal
+
+
+Set Hostname to MOB
+Router(config)# hostname MOB
+
+
+Set Console Line Password
+MOB(config)# line console 0
+MOB(config-line)# password cisco
+MOB(config-line)# login
+MOB(config-line)# exit
+
+Set Enable Password
+MOB(config)# enable password class
+
+Enter Serial Interface Mode
+MOB(config)# interface Serial0/2/0
+Assign IP Address
+MOB(config-if)# ip address 10.10.10.2 255.255.255.252
+Enable the Interface
+MOB(config-if)# no shutdown
+Exit to Privileged Mode
+MOB(config-if)# exit
+MOB(config)# exit
+
+
+Verification for Scenario 1
+Check Interface Status on PTCL
+PTCL# show ip interface brief
+
+Check Interface Status on MOB
+MOB# show ip interface brief
+
+ You should see:
+Interface         IP-Address      OK? Method Status     Protocol
+Serial0/x/x       10.10.10.x      YES manual up         up
+
+
+Scenario 2: admin down/down on PTCL and down/down on MOB
+On Router PTCL
+Enter Privileged EXEC Mode
+PTCL> enable
+Enter Global Configuration Mode
+PTCL# configure terminal
+Enter Serial Interface Mode
+PTCL(config)# interface Serial0/1/0
+Shutdown the Interface
+Manually disable interface (admin down)
+PTCL(config-if)# shutdown
+Exit to Privileged Mode
+PTCL(config-if)# exit
+PTCL(config)# exit
+
+
+✅ Verification for Scenario 2
+On PTCL
+PTCL# show ip interface brief
+You should see:
+Serial0/1/0   10.10.10.1   YES manual administratively down down
+
+
+On MOB
+MOB# show ip interface brief
+You should see:
+Serial0/2/0   10.10.10.2   YES manual down down
+
+
+📘 Summary of Part 1
+Scenarios 
+PTCL Interface	MOB Interface	Result Description
+1	up / up	up / up	Link fully operational
+2	administratively down / down	down / down	Link fails due to manual shutdown
+
+So if you see down/down on your side then there are chnanes that other side is administratively down /down 
