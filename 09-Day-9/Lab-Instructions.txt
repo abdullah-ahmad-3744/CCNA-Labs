@@ -22,8 +22,7 @@ PTCL(config-line)# exit
 Set Enable Password
 PTCL(config)# enable password class
 
-Enter Interface Configuration Mode
-Used to configure Serial0/1/0 interface:
+Enter Interface Configuration Mode .Used to configure Serial0/1/0 interface:
 PTCL(config)# interface Serial0/1/0
 Assign IP Address
 PTCL(config-if)# ip address 192.168.10.1 255.255.255.0
@@ -36,7 +35,7 @@ PTCL(config-if)# exit
 PTCL(config)# exit
 
 Check the encapslation 
-PTCL# show encapsulation : It should be HDLC on the Cisco Devices.
+PTCL# show encapsulation : It should be "HDLC" on the Cisco Devices.
 
 
 Step : 3. Configure Router MOB
