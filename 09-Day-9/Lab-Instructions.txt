@@ -1,0 +1,115 @@
+CCNA Day-09 Lab: Troubleshooting Serial Link with Encapsulation Mismatch
+Lab Objective
+The purpose of this lab is to simulate and troubleshoot an interface issue caused by an encapsulation mismatch on serial links between two routers.
+
+Step-by-Step Instructions
+Step : 1. Build the Topology in Packet Tracer
+Open Cisco Packet Tracer. Drag two routers: Rename them PTCL and MOB. Use the Serial DCE Cable to connect: PTCL (Serial0/1/0) ⟶ MOB (Serial0/2/0)
+
+2. Configure Router PTCL
+PTCL> enable
+PTCL# configure terminal
+Set Hostname
+PTCL(config)# hostname PTCL
+
+
+Set Console Password
+PTCL(config)# line console 0
+PTCL(config-line)# password cisco
+PTCL(config-line)# login
+PTCL(config-line)# exit
+
+Set Enable Password
+PTCL(config)# enable password class
+
+Enter Interface Configuration Mode
+Used to configure Serial0/1/0 interface:
+PTCL(config)# interface Serial0/1/0
+Assign IP Address
+PTCL(config-if)# ip address 192.168.10.1 255.255.255.0
+Set Clock Rate. Only required on DCE side:
+PTCL(config-if)# clock rate 64000
+Enable the Interface
+PTCL(config-if)# no shutdown
+Exit Interface Mode
+PTCL(config-if)# exit
+PTCL(config)# exit
+
+Check the encapslation 
+PTCL# show encapsulation : It should be HDLC on the Cisco Devices.
+
+
+Step : 3. Configure Router MOB
+MOB> enable
+Go to Global Configuration Mode
+MOB# configure terminal
+Set Hostname
+MOB(config)# hostname MOB
+
+
+Set Console Password
+MOB(config)# line console 0
+MOB(config-line)# password cisco
+MOB(config-line)# login
+MOB(config-line)# exit
+
+Set Enable Password
+MOB(config)# enable password class
+
+
+Enter Interface Configuration Mode
+MOB(config)# interface Serial0/2/0
+Assign IP Address
+MOB(config-if)# ip address 192.168.10.2 255.255.255.0
+
+
+Check the Encapsulation 
+MOB(config-if)# show encapsulation . It should be HDLC on Cisco devices . 
+Cause Encapsulation Mismatch .This simulates the issue:
+MOB(config-if)# encapsulation ppp
+Enable the Interface
+MOB(config-if)# no shutdown
+Exit Interface Mode
+MOB(config-if)# exit
+MOB(config)# exit
+
+
+🔍 4. Verify Interface Status on Both Routers
+Show interface status on PTCL
+PTCL# show ip interface brief
+Expected output:
+Serial0/1/0   192.168.10.1   YES manual   up     down
+
+
+Show interface status on MOB
+MOB# show ip interface brief
+Expected output:
+Serial0/2/0   192.168.10.2   YES manual   up     down
+ssue confirmed: Status = up, Protocol = down due to encapsulation mismatch.
+
+
+Step : 5. Troubleshoot and Fix the Issue
+Go to Privileged EXEC Mode on MOB
+MOB> enable
+Enter Global Configuration Mode
+MOB# configure terminal
+Enter Interface Mode for Serial0/2/0
+MOB(config)# interface Serial0/2/0
+Change Encapsulation to Match PTCL (HDLC)
+MOB(config-if)# encapsulation hdlc
+Exit Interface Mode
+MOB(config-if)# exit
+MOB(config)# exit
+
+
+Step : 6. Re-Verify Interface Status on Both Routers
+Check PTCL
+PTCL# show ip interface brief
+Check MOB
+MOB# show ip interface brief
+Expected output now:
+Serial0/x/x   192.168.10.x   YES manual   up     up
+
+
+Final Notes
+This lab demonstrated how an encapsulation mismatch can prevent a serial link from functioning. Even if status = up, the protocol will remain down until both ends agree on the encapsulation.Use show interfaces or show ip interface brief for quick diagnostics.
