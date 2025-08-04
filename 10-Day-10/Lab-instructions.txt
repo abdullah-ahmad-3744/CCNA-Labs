@@ -1,0 +1,65 @@
+CCNA Day-10 Lab: Telnet Configuration on a Router
+
+Lab Objective
+The objective of this lab is to configure and test Telnet access to a Cisco router using a single Admin PC in Cisco Packet Tracer. This helps understand how to remotely access a router over the network.
+
+Step-by-Step Instructions
+Step 1: Build the Topology in Packet Tracer. Open Cisco Packet Tracer. Drag and drop 1 Router and 1 PC into the workspace. Rename the router to PTCL and MOB. Rename the PC to Admin_PC. Connect the PC to the router using a Copper Straight-Through Cable: Admin_PC (FastEthernet0) ⟶ PTCL (FastEthernet0/0)
+
+Step 2: Configure the Router PTCL
+Enter Privileged EXEC Mode
+PTCL> enable
+Enter Global Configuration Mode
+PTCL# configure terminal
+Set Hostname
+PTCL(config)# hostname PTCL
+
+
+Set Console Password (for local terminal access)
+PTCL(config)# line console 0
+PTCL(config-line)# password cisco
+PTCL(config-line)# login
+PTCL(config-line)# exit
+Set Enable Password
+PTCL(config)# enable password class
+
+
+Configure Telnet (VTY) Lines
+PTCL(config)# line vty 0 4
+PTCL(config-line)# password telnet-password
+PTCL(config-line)# login
+PTCL(config-line)# exit
+
+Configure IP Address on Router Interface
+PTCL(config)# interface FastEthernet0/0
+PTCL(config-if)# ip address 192.168.1.1 255.255.255.0
+PTCL(config-if)# no shutdown
+PTCL(config-if)# exit
+
+Save the Configuration
+PTCL# write memory
+Step 3: Configure Admin_PC
+Click on Admin_PC
+Go to Desktop > IP Configuration
+IP Address: 192.168.1.2
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.1.1 (Router’s interface IP)
+
+Step 4: Test Connectivity
+Ping the Router from Admin_PC
+Go to Desktop > Command Prompt
+Run the command:
+ping 192.168.1.1
+Expected Result: Successful ping replies (0% packet loss)
+
+Step 5: Telnet into the Router
+Still in the Command Prompt on Admin_PC, type:
+telnet 192.168.1.1
+You should be prompted for the Telnet password (or username/password if you used login local).
+On success, you will see:
+PTCL> 
+You’re now remotely connected to the router using Telnet!
+
+
+Final Notes
+Telnet allows remote CLI access to Cisco devices. Always secure Telnet with passwords or better: use SSH in real networks. You must configure IP addresses and enable interfaces for Telnet to work. Use show line, show users, and show running-config to verify Telnet setup.
