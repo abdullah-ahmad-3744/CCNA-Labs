@@ -4,7 +4,7 @@ Lab Objective
 The objective of this lab is to configure and test Telnet access to a Cisco router using a single Admin PC in Cisco Packet Tracer. This helps understand how to remotely access a router over the network.
 
 Step-by-Step Instructions
-Step 1: Build the Topology in Packet Tracer. Open Cisco Packet Tracer. Drag and drop 1 Router and 1 PC into the workspace. Rename the router to PTCL and MOB. Rename the PC to Admin_PC. Connect the PC to the router using a Copper Straight-Through Cable: Admin_PC (FastEthernet0) ⟶ PTCL (FastEthernet0/0)
+Step 1: Build the Topology in Packet Tracer. Open Cisco Packet Tracer. Drag and drop 1 Router and 1 PC into the workspace. Rename the router to PTCL. Rename the PC to Admin_PC. Connect the PC to the router using a Copper Straight-Through Cable: Admin_PC (FastEthernet0) ⟶ PTCL (FastEthernet0/0)
 
 Step 2: Configure the Router PTCL
 Enter Privileged EXEC Mode
