@@ -1,0 +1,96 @@
+CDP Protocol Lab: Telnet and Neighbor Discovery
+
+Lab Objective
+The objective of this lab is to configure and test Telnet access and CDP neighbor discovery across five routers connected in a loop. You’ll begin from a PC connected to the Head Office router, Telnet into it, and then use CDP and Telnet to jump from one router to another across all branches.
+
+Devices and Connections
+5 Routers: R1 = Head_Office, R2 = Lahore, R3 = Peshawar, R4 = Bahawalpur, R5 = Karachi
+
+1 Admin PC connected to Head_Office router
+All routers connected in a ring topology using Serial links (or FastEthernet if needed)
+
+Step-by-Step Instructions
+Step 1: Build the Topology in Packet Tracer
+Add 5 routers and 1 PC
+Label them as: R1: Head_Office R2: Lahore R3: Peshawar R4: Bahawalpur R5: Karachi
+
+Connect them in a ring using Serial or FastEthernet cables: , R1 ↔ R2 , R2 ↔ R3 , R3 ↔ R4 , R4 ↔ R5 , R5 ↔ R1
+
+Connect Admin_PC to Head_Office (R1) via FastEthernet
+Step 2: Configure IP Addresses on Router Interfaces
+Example for Head_Office (R1):
+R1> enable
+R1# configure terminal
+R1(config)# hostname Head_Office
+
+Head_Office(config)# interface FastEthernet0/0
+Head_Office(config-if)# ip address 192.168.1.1 255.255.255.0
+Head_Office(config-if)# no shutdown
+Head_Office(config-if)# exit
+
+Head_Office(config)# interface Serial0/0/0
+Head_Office(config-if)# ip address 10.0.1.1 255.255.255.0
+Head_Office(config-if)# no shutdown
+Head_Office(config-if)# exit
+
+Head_Office(config)# interface Serial0/0/1
+Head_Office(config-if)# ip address 10.0.5.2 255.255.255.0
+Head_Office(config-if)# no shutdown
+Head_Office(config-if)# exit
+
+
+Repeat similar configurations on other routers, using different subnets for each Serial link.
+
+Step 3: Enable CDP (Default is ON)
+To ensure CDP is working:
+Router# show cdp neighbors
+If disabled, enable with:
+Router(config)# cdp run
+
+
+Step 4: Configure Telnet and Passwords on All Routers
+Router(config)# line vty 0 4
+Router(config-line)# password telnet123
+Router(config-line)# login
+Router(config-line)# exit
+
+Router(config)# line console 0
+Router(config-line)# password cisco
+Router(config-line)# login
+Router(config-line)# exit
+Router(config)# enable password class
+
+Step 5: Configure Admin PC
+On Admin_PC → Desktop → IP Configuration:
+IP Address:       192.168.1.10  
+Subnet Mask:      255.255.255.0  
+Default Gateway:  192.168.1.1  (Head_Office interface IP)
+
+
+Step 6: Verify Connectivity from Admin_PC
+ping 192.168.1.1
+Expected: Successful replies
+
+Step 7: Telnet into Head_Office Router
+telnet 192.168.1.1
+Enter password: telnet123
+You should now see:
+Head_Office>
+
+Step 8: Use CDP to Discover Neighbors
+Head_Office# show cdp neighbors
+You will see directly connected routers like Lahore and Karachi.
+
+Step 9: Telnet from Head_Office to Neighbors
+Head_Office# telnet 10.0.1.2  # Lahore router
+You’ll enter Lahore’s CLI.
+Lahore# show cdp neighbors          ======> It shows the neighbors connected to the local interfaces
+Lahore# show cdp neighbors detail   ====> It shows the details of the neighbors like IP address of the neighbors.
+
+Repeat the process to Telnet to Peshawar, Bahawalpur, and Karachi using their respective interface IPs.
+
+Step 10: Save Configuration on All Routers
+Router# write memory
+
+Final Notes
+CDP helps discover directly connected Cisco devices. Telnet allows remote access secure it in real networks with SSH. Ensure all router interfaces are up (no shutdown). Use show ip interface brief to check status. For router-to-router Telnet, ensure all interfaces have IP addresses.
