@@ -1,0 +1,92 @@
+CCNA Day-12 Lab: VLAN Creation and Assignment
+
+Lab Objective
+The objective of this lab is to create VLANs on a Cisco switch and assign switch ports to those VLANs. This lab helps you understand how to segment a network into multiple broadcast domains using VLANs.
+
+Step-by-Step Instructions
+Step 1: Build the Topology in Packet Tracer. Open Cisco Packet Tracer. Drag and drop the following devices into the workspace: 1 Cisco Switch (2960), 3 PCs
+
+Rename the devices as follows: Switch ⟶ SW1 , PC0 ⟶ Sales_PC , PC1 ⟶ HR_PC , PC2 ⟶ Admin_PC
+
+Connect the devices using Copper Straight-Through Cables:
+Sales_PC (FastEthernet0) ⟶ SW1 (FastEthernet0/1)
+HR_PC (FastEthernet0) ⟶ SW1 (FastEthernet0/2)
+Admin_PC (FastEthernet0) ⟶ SW1 (FastEthernet0/3)
+
+Step 2: Create VLANs on SW1
+Click on SW1 and go to the CLI tab.
+Enter Privileged EXEC Mode:
+Switch> enable
+Enter Global Configuration Mode:
+Switch# configure terminal
+
+
+Create VLANs:
+Switch(config)# vlan 10
+Switch(config-vlan)# name Sales
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 20
+Switch(config-vlan)# name HR
+Switch(config-vlan)# exit
+
+Switch(config)# vlan 30
+Switch(config-vlan)# name Admin
+Switch(config-vlan)# exit
+
+
+Step 3: Assign VLANs to Switch Ports
+Assign FastEthernet0/1 to VLAN 10 (Sales):
+Switch(config)# interface FastEthernet0/1
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# exit
+
+
+Assign FastEthernet0/2 to VLAN 20 (HR):
+Switch(config)# interface FastEthernet0/2
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 20
+Switch(config-if)# exit
+
+
+Assign FastEthernet0/3 to VLAN 30 (Admin):
+Switch(config)# interface FastEthernet0/3
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 30
+Switch(config-if)# exit
+
+
+Step 4: Verify VLAN Configuration
+Exit configuration mode:
+Switch(config)# end
+
+
+View VLANs:
+Switch# show vlan brief
+You should see VLAN 10, 20, and 30 created and ports Fa0/1, Fa0/2, and Fa0/3 assigned respectively.
+
+Step 5: (Optional) Assign IP Addresses to PCs for Testing
+Click on Sales_PC > Desktop > IP Configuration:
+IP Address: 192.168.10.2
+Subnet Mask: 255.255.255.0
+Default Gateway: leave blank (no router used)
+
+Click on HR_PC > Desktop > IP Configuration:
+IP Address: 192.168.20.2
+Subnet Mask: 255.255.255.0
+Default Gateway: leave blank
+
+Click on Admin_PC > Desktop > IP Configuration:
+IP Address: 192.168.30.2
+Subnet Mask: 255.255.255.0
+Default Gateway: leave blank
+
+Step 6: (Optional) Test Connectivity
+Open the Command Prompt on Sales_PC and try to ping HR_PC:
+ping 192.168.20.2
+Expected Result:
+Ping will fail, because VLANs are in different broadcast domains.
+
+Final Notes
+VLANs separate Layer 2 traffic, improving network segmentation and security Devices in different VLANs cannot communicate without a Layer 3 device (router or L3 switch). Use the show vlan brief command to verify VLAN assignments.Always save your configuration with write memory or copy running-config startup-config on real devices.
