@@ -1,0 +1,134 @@
+CCNA Day-13 Lab: Full Revision of Day 1–Day 12 Concepts
+Lab Objective
+The objective of this lab is to revise and practice all concepts from Day 1 to Day 12, including: Basic router & switch configuration (hostname, passwords), IP addressing & subnetting, Static routing , Configuring & testing VLANs, Telnet & SSH remote access, Interface configuration & enabling, Ping & connectivity verification, Saving configurations
+
+Step-by-Step Instructions
+Step 1: Build the Topology in Packet Tracer
+Devices Required: 2 Routers (R1, R2) , 2 Switches (SW1, SW2), 4 PCs (Sales_PC, HR_PC, Admin_PC, Remote_Admin_PC)
+Connections:
+Sales_PC → SW1 (FastEthernet0/1) → R1 (GigabitEthernet0/0)
+HR_PC → SW1 (FastEthernet0/2)
+Admin_PC → SW2 (FastEthernet0/1) → R2 (GigabitEthernet0/0)
+Remote_Admin_PC → SW2 (FastEthernet0/2)
+R1 (GigabitEthernet0/1) ↔ R2 (GigabitEthernet0/1) (Serial or Copper Cross-Over Cable)
+
+Step 2: Basic Router Configuration (R1 & R2)
+Enter Privileged EXEC Mode:
+Router> enable
+Enter Global Configuration Mode:
+Router# configure terminal
+Set Hostname:
+Router(config)# hostname R1   (Repeat for R2 as R2)
+
+Step 3: Secure Access with Passwords
+Set Console Password:
+R1(config)# line console 0
+R1(config-line)# password cisco
+R1(config-line)# login
+Set Enable Password:
+R1(config)# enable password class
+
+Step 4: Configure Interfaces & IP Addresses
+R1:
+R1(config)# interface g0/0
+R1(config-if)# ip address 192.168.10.1 255.255.255.0
+R1(config-if)# no shutdown
+
+R1(config)# interface g0/1
+R1(config-if)# ip address 10.0.0.1 255.255.255.252
+R1(config-if)# no shutdown
+
+R2:
+R2(config)# interface g0/0
+R2(config-if)# ip address 192.168.20.1 255.255.255.0
+R2(config-if)# no shutdown
+
+R2(config)# interface g0/1
+R2(config-if)# ip address 10.0.0.2 255.255.255.252
+R2(config-if)# no shutdown
+Step 6: Configure Static Routing
+
+On R1:
+R1(config)# ip route 192.168.20.0 255.255.255.0 10.0.0.2
+On R2:
+R2(config)# ip route 192.168.10.0 255.255.255.0 10.0.0.1
+
+Step 7: Configure VLANs on SW1 and SW2
+SW1:
+Switch> enable
+Switch# configure terminal
+Switch(config)# vlan 10
+Switch(config-vlan)# name Sales
+Switch(config)# vlan 20
+Switch(config-vlan)# name HR
+Assign Ports:
+Switch(config)# interface fa0/1
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 10
+Switch(config)# interface fa0/2
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 20
+
+SW2:
+Switch(config)# vlan 30
+Switch(config-vlan)# name Admin
+Assign Port:
+Switch(config)# interface fa0/1
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 30
+
+Step 8: Configure Port Security (Example on SW1 Fa0/1)
+SW1(config)# interface fa0/1
+SW1(config-if)# switchport mode access
+SW1(config-if)# switchport port-security
+SW1(config-if)# switchport port-security maximum 1
+SW1(config-if)# switchport port-security violation shutdown
+SW1(config-if)# switchport port-security mac-address sticky
+
+Step 9: Configure Telnet on R1 & R2
+R1(config)# line vty 0 4
+R1(config-line)# password telnet123
+R1(config-line)# login
+(Repeat for R2)
+
+Step 10: Configure SSH on R1 & R2
+R1(config)# line vty 0 4
+R1(config-line)# login local
+R1(config-line)# transport input ssh
+(Repeat for R2)
+
+Step 11: Configure PCs
+Sales_PC (VLAN 10):
+IP: 192.168.10.2
+Subnet Mask: 255.255.255.0
+Gateway: 192.168.10.1
+
+HR_PC (VLAN 20):
+IP: 192.168.10.3
+Subnet Mask: 255.255.255.0
+Gateway: 192.168.10.1
+
+Admin_PC (VLAN 30):
+IP: 192.168.20.2
+Subnet Mask: 255.255.255.0
+Gateway: 192.168.20.1
+
+Remote_Admin_PC:
+IP: 192.168.20.3
+Subnet Mask: 255.255.255.0
+Gateway: 192.168.20.1
+Step 12: Test Connectivity
+
+From Sales_PC:
+ping 192.168.20.2
+telnet 192.168.10.1
+
+From Remote_Admin_PC:
+ping 192.168.10.2
+ssh -l admin 192.168.20.1
+
+Step 13: Save All Configurations
+copy running-config startup-config
+
+Final Notes
+This lab revises all Day 1–Day 12 concepts in a single setup. You configured routers, switches, VLANs, IP addresses, static routing, Telnet, SSH, port security, and tested connectivity. Always remember: VLANs need a Layer 3 device for inter-VLAN communication.In real-world setups, prefer SSH over Telnet for security. Save configurations before closing the lab.
