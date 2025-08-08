@@ -30,20 +30,20 @@ R1(config)# enable password class
 
 Step 4: Configure Interfaces & IP Addresses
 R1:
-R1(config)# interface g0/0
+R1(config)# interface s0/0/0
 R1(config-if)# ip address 192.168.10.1 255.255.255.0
 R1(config-if)# no shutdown
 
-R1(config)# interface g0/1
+R1(config)# interface s0/0/1
 R1(config-if)# ip address 10.0.0.1 255.255.255.252
 R1(config-if)# no shutdown
 
 R2:
-R2(config)# interface g0/0
+R2(config)# interface s0/0/0
 R2(config-if)# ip address 192.168.20.1 255.255.255.0
 R2(config-if)# no shutdown
 
-R2(config)# interface g0/1
+R2(config)# interface s0/0/1
 R2(config-if)# ip address 10.0.0.2 255.255.255.252
 R2(config-if)# no shutdown
 Step 6: Configure Static Routing
