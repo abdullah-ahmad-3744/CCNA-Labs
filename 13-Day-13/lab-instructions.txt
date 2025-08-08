@@ -77,15 +77,8 @@ Switch(config)# interface fa0/1
 Switch(config-if)# switchport mode access
 Switch(config-if)# switchport access vlan 30
 
-Step 8: Configure Port Security (Example on SW1 Fa0/1)
-SW1(config)# interface fa0/1
-SW1(config-if)# switchport mode access
-SW1(config-if)# switchport port-security
-SW1(config-if)# switchport port-security maximum 1
-SW1(config-if)# switchport port-security violation shutdown
-SW1(config-if)# switchport port-security mac-address sticky
 
-Step 9: Configure Telnet on R1 & R2
+Step 8: Configure Telnet on R1 & R2
 R1(config)# line vty 0 4
 R1(config-line)# password telnet123
 R1(config-line)# login
