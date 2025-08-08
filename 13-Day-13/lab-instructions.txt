@@ -110,8 +110,8 @@ Remote_Admin_PC:
 IP: 192.168.20.3
 Subnet Mask: 255.255.255.0
 Gateway: 192.168.20.1
-Step 12: Test Connectivity
 
+Step 12: Test Connectivity
 From Sales_PC:
 ping 192.168.20.2
 telnet 192.168.10.1
