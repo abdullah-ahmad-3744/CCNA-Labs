@@ -46,8 +46,8 @@ R2(config-if)# no shutdown
 R2(config)# interface s0/0/1
 R2(config-if)# ip address 10.0.0.2 255.255.255.252
 R2(config-if)# no shutdown
-Step 6: Configure Static Routing
 
+Step 6: Configure Static Routing
 On R1:
 R1(config)# ip route 192.168.20.0 255.255.255.0 10.0.0.2
 On R2:
