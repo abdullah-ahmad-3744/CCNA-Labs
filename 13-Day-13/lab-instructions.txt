@@ -119,6 +119,9 @@ telnet 192.168.10.1
 From Remote_Admin_PC:
 ping 192.168.10.2
 ssh -l admin 192.168.20.1
+================================================================================
+Imp Note : Connectivity will not work becuase of the different VLAN'S . So it is your assignment to configure the VLAN'S in a way that ping and Telnet will work. (Same VLAN on the router and pc's)
+==============================================================================
 
 Step 13: Save All Configurations
 copy running-config startup-config
