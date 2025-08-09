@@ -123,7 +123,11 @@ ssh -l admin 192.168.20.1
 Imp Note : Connectivity will not work becuase of the different VLAN'S . So it is your assignment to configure the VLAN'S in a way that ping and Telnet will work. (Same VLAN on the router and pc's)
 ==============================================================================
 
-Step 13: Save All Configurations
+
+Step 13: Check the neighbors neighbors details with the cdp neighbors and cdp neighbors detail for checking the directly connected devices.
+
+
+Step 14: Save All Configurations
 copy running-config startup-config
 
 Final Notes
