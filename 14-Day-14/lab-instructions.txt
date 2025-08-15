@@ -25,7 +25,7 @@ R1(config-if)# ip address 192.168.1.1 255.255.255.0
 R1(config-if)# no shutdown
 R1(config-if)# exit
 
-Step 3: Configure Admin_PC (TFTP Server)
+Step 3: Configure Server (TFTP Server)
 Click Server.
 Go to Desktop > IP Configuration and set:
 IP Address: 192.168.1.2
