@@ -7,7 +7,7 @@ Step-by-Step Instructions
 Step 1: Build the Topology in Packet Tracer
 
 Devices Required:
-2 Switches (SW-A and SW-B), 2 PCs (PC1 and PC2)
+2 Multilayer Switches (3560) (SW-A and SW-B), 2 PCs (PC1 and PC2)
 Connections:
 SW-A (FastEthernet0/1) ⟶ SW-B (FastEthernet0/1) (Trunk link)
 PC1 (FastEthernet0) ⟶ SW-A (FastEthernet0/2)
