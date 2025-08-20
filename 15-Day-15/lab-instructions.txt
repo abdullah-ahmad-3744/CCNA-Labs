@@ -1,0 +1,139 @@
+CCNA Day-15 Lab: VLANs Configuration and Verification with PCs
+Lab Objective
+
+The objective of this lab is to configure VLANs on Cisco switches, set up VTP server/client modes, configure trunk ports, create VLANs, assign access ports, and verify connectivity between PCs using ping tests. This exercise strengthens practical skills in VLAN segmentation, trunking, and host-to-host communication.
+
+Step-by-Step Instructions
+Step 1: Build the Topology in Packet Tracer
+
+Devices Required:
+2 Switches (SW-A and SW-B), 2 PCs (PC1 and PC2)
+Connections:
+SW-A (FastEthernet0/1) ⟶ SW-B (FastEthernet0/1) (Trunk link)
+PC1 (FastEthernet0) ⟶ SW-A (FastEthernet0/2)
+PC2 (FastEthernet0) ⟶ SW-A (FastEthernet0/3)
+
+
+Step 2: Configure Switch Hostnames
+On SW-A:
+Switch> enable
+Switch# configure terminal
+Switch(config)# hostname SW-A
+
+On SW-B:
+Switch> enable
+Switch# configure terminal
+Switch(config)# hostname SW-B
+
+
+Step 3: Configure VTP Domain Name
+Set the domain name as Cisco on both switches:
+SW-A(config)# vtp domain Cisco
+SW-B(config)# vtp domain Cisco
+Verification Command:
+show vtp status
+
+
+Step 4: Configure VTP Mode (Server/Client)
+On SW-A (Server):
+SW-A(config)# vtp mode server
+On SW-B (Client):
+SW-B(config)# vtp mode client
+Verification Command:
+show vtp status
+
+
+Step 5: Configure Trunk Port Between Switches
+On both switches, configure FastEthernet0/1 as trunk:
+Switch(config)# interface FastEthernet0/1
+Switch(config-if)# switchport trunk encapsulation dot1q
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# no shutdown
+
+Verification Command:
+show interfaces trunk
+
+
+
+Step 6: Verify Spanning Tree Protocol
+On any switch, run:
+show spanning-tree
+This verifies STP is running and shows the root bridge election process.
+
+
+Step 7: Configure VLANs on SW-A
+Create VLAN 2 and VLAN 3 on SW-A:
+SW-A(config)# vlan 2
+SW-A(config-vlan)# name VLAN_2
+SW-A(config-vlan)# exit
+SW-A(config)# vlan 3
+SW-A(config-vlan)# name VLAN_3
+SW-A(config-vlan)# exit
+
+Verification Command:
+show vlan brief
+
+
+Step 8: Configure Access Ports for PCs on SW-A
+Assign Fa0/2 and Fa0/3 as access ports:
+SW-A(config)# interface FastEthernet0/2
+SW-A(config-if)# switchport mode access
+SW-A(config-if)# exit
+SW-A(config)# interface FastEthernet0/3
+SW-A(config-if)# switchport mode access
+SW-A(config-if)# exit
+
+Verification Command:
+show running-config
+
+
+Step 9: Assign VLAN Membership to PC Ports
+Now configure VLAN membership for FastEthernet0/2 (PC1) and FastEthernet0/3 (PC2).
+If both ports are placed in VLAN 2, PC1 and PC2 will be able to ping each other successfully.
+If PC1 is in VLAN 2 and PC2 is in VLAN 3, the ping test will fail because devices in different VLANs cannot communicate without a router or Layer 3 switch.
+If both ports are placed in VLAN 3, PC1 and PC2 will again be able to ping each other successfully.
+
+Configuration Examples:
+For both PCs in VLAN 2:
+SW-A(config)# interface FastEthernet0/2
+SW-A(config-if)# switchport access vlan 2
+SW-A(config)# interface FastEthernet0/3
+SW-A(config-if)# switchport access vlan 2
+
+
+For PC1 in VLAN 2 and PC2 in VLAN 3:
+SW-A(config)# interface FastEthernet0/2
+SW-A(config-if)# switchport access vlan 2
+SW-A(config)# interface FastEthernet0/3
+SW-A(config-if)# switchport access vlan 3
+
+
+For both PCs in VLAN 3:
+SW-A(config)# interface FastEthernet0/2
+SW-A(config-if)# switchport access vlan 3
+SW-A(config)# interface FastEthernet0/3
+SW-A(config-if)# switchport access vlan 3
+
+Verification Command:
+show vlan brief
+
+
+Step 10: Configure IP Addresses on PCs
+On PC1:
+IP Address: 192.168.2.10
+Subnet Mask: 255.255.255.0
+On PC2:
+IP Address: 192.168.2.20 (if in VLAN 2)
+OR
+IP Address: 192.168.3.20 (if in VLAN 3)
+
+
+Step 11: Test Connectivity
+From PC1, ping PC2.
+Observe results:
+If both PCs are in the same VLAN → ping is successful.
+If PCs are in different VLANs → ping fails.
+
+
+Final Notes
+This lab demonstrated VLAN setup and verification with two switches and two PCs. By testing ping between PCs, you confirmed how VLAN segmentation affects communication. VLANs allow logical separation of hosts for security and traffic management. In production, inter-VLAN routing (via a router or Layer 3 switch) would be needed for communication between different VLANs.
