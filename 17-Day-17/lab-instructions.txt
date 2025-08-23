@@ -1,0 +1,81 @@
+CCNA Day-17 Lab: Static Routing Configuration and Verification
+
+Lab Objective
+The objective of this lab is to configure static routes between routers to enable communication between different networks. You’ll build a simple topology with two routers and two PCs, assign IP addresses, configure interfaces, and manually define static routes. This lab strengthens your understanding of routing logic, IP addressing, and path control in a network without dynamic protocols.
+
+Step-by-Step Instructions
+Step 1: Build the Topology in Packet Tracer
+Devices Required: 2 Routers (R1 and R2) , 2 PCs (PC1 and PC2)
+
+Connections: 
+PC1 ⟶ R1 (FastEthernet0/0) 
+ R1 ⟶ R2 (Serial0/0/0)
+R2 ⟶ PC2 (FastEthernet0/0)
+
+Step 2: Configure Router Hostnames
+On R1:
+Router> enable
+Router# configure terminal
+Router(config)# hostname R1
+On R2:
+Router> enable
+Router# configure terminal
+Router(config)# hostname R2
+
+
+Step 3: Configure IP Addresses on Router Interfaces
+On R1:
+R1(config)# interface FastEthernet0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# no shutdown
+
+R1(config)# interface Serial0/0/0
+R1(config-if)# ip address 10.0.0.1 255.255.255.252
+R1(config-if)# no shutdown
+On R2:
+R2(config)# interface FastEthernet0/0
+R2(config-if)# ip address 192.168.2.1 255.255.255.0
+R2(config-if)# no shutdown
+
+R2(config)# interface Serial0/0/0
+R2(config-if)# ip address 10.0.0.2 255.255.255.252
+R2(config-if)# no shutdown
+
+
+
+Step 4: Configure IP Addresses on PCs
+On PC1:
+IP Address: 192.168.1.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.1.1
+On PC2:
+IP Address: 192.168.2.10
+Subnet Mask: 255.255.255.0
+Default Gateway: 192.168.2.1
+
+Step 5: Check the Routes on both routers in the ebable mode
+R1 # show ip route
+
+Step 6: Configure Static Routes
+On R1 (route to PC2’s network via R2):
+R1(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2
+On R2 (route to PC1’s network via R1):
+R2(config)# ip route 192.168.1.0 255.255.255.0 10.0.0.1
+
+
+Step 7: Verify Routing Tables in the enable mode
+On both routers:
+show ip route
+You should see the static routes listed with an “S” code.
+
+Step 8: Test Connectivity
+From PC1:
+Ping PC2 (192.168.2.10)
+From PC2:
+Ping PC1 (192.168.1.10)
+Expected Result:
+Successful ping replies if static routes are correctly configured.
+
+
+Final Notes
+This lab demonstrates how static routing enables communication between networks without dynamic protocols. While static routes are simple and predictable, they require manual updates and are best suited for small or stable environments. In larger networks, dynamic routing protocols like OSPF or EIGRP offer scalability and automation.
