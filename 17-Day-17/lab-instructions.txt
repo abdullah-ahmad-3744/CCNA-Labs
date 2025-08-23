@@ -11,7 +11,9 @@ Connections:
 PC1 ⟶ R1 (FastEthernet0/0) 
  R1 ⟶ R2 (Serial0/0/0)
 R2 ⟶ PC2 (FastEthernet0/0)
-
+=====================================================================
+Note :  Select the 2811 Router . Click on the Router , Go to the physical tab and click on it , turn off the router by clicking the green light button . Then go to the modules section and select the WIC-2T module and attach it at the black portions under the Original size , Zoom in section . Then agian click the green light button and turn on the router. 
+=====================================================================
 Step 2: Configure Router Hostnames
 On R1:
 Router> enable
