@@ -1,0 +1,75 @@
+CCNA Day-19 Lab: EIGRP Routing Configuration and Verification.
+
+Lab Objective
+The objective of this lab is to configure EIGRP (Enhanced Interior Gateway Routing Protocol) between routers to enable efficient and scalable route sharing across networks. You’ll build a simple topology with two routers and two PCs, assign IP addresses, configure interfaces, and enable EIGRP to dynamically exchange routes. This lab strengthens your understanding of EIGRP metrics, neighbor relationships, and route propagation.
+
+Step by Step Instructions.
+
+Step 1: Build the Topology in Packet Tracer.
+Devices Required: 2 Routers (R1 and R2) 2 PCs (PC1 and PC2)
+Connections: PC1 ⟶ R1 (FastEthernet0/0) R1 ⟶ R2 (Serial0/0/0) R2 ⟶ PC2 (FastEthernet0/0)
+
+=================================================================================================
+Note: Select the 2811 Router. Click the router → go to the Physical tab → click the green light to power off. Attach the WIC-2T module in the black slots under “Original Size” (zoom in if needed). Click the green light again to power on the router.
+==================================================================================================
+
+Step 2: Configure Router Hostnames
+On R1:
+Router> enable  
+Router# configure terminal  
+Router(config)# hostname R1
+On R2:
+Router> enable  
+Router# configure terminal  
+Router(config)# hostname R2
+
+
+Step 3: Configure IP Addresses on Router Interfaces
+On R1:
+R1(config)# interface FastEthernet0/0  
+R1(config-if)# ip address 192.168.1.1 255.255.255.0  
+R1(config-if)# no shutdown  
+
+R1(config)# interface Serial0/0/0  
+R1(config-if)# ip address 10.0.0.1 255.0.0.0  
+R1(config-if)# no shutdown
+
+On R2:
+R2(config)# interface FastEthernet0/0  
+R2(config-if)# ip address 192.168.2.1 255.255.255.0  
+R2(config-if)# no shutdown  
+
+R2(config)# interface Serial0/0/0  
+R2(config-if)# ip address 10.0.0.2 255.255.255.252  
+R2(config-if)# no shutdown
+
+
+Step 4: Configure IP Addresses on PCs
+On PC1: IP Address: 192.168.1.10 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.1.1
+On PC2: IP Address: 192.168.2.10 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.2.1
+
+Step 5: Enable EIGRP Routing Protocol
+R1(config)# router eigrp  Autonomous Number 
+On R1:
+R1(config)# router eigrp 100   (This 100 is the Autonomous Number)
+R1(config-router)# network 192.168.1.0 0.0.0.255  
+R1(config-router)# network 10.0.0.0 0.255.255.255  
+On R2:
+R2(config)# router eigrp 100   (This 100 is the Autonomous Number)
+R2(config-router)# network 192.168.2.0 0.0.0.255  
+R2(config-router)# network 10.0.0.0 0.255.255.255  
+
+
+Step 6: Verify Routing Tables
+On both routers:
+R1# show ip route  
+R2# show ip route
+You should see EIGRP-learned routes marked with a “D” code.
+
+Step 7: Test Connectivity
+From PC1: Ping PC2 (192.168.2.10)
+From PC2: Ping PC1 (192.168.1.10)
+Expected Result: Successful ping replies if EIGRP is correctly configured and routes are dynamically learned.
+
+
+Final Notes This lab demonstrates how EIGRP automates route sharing between routers while offering faster convergence and better scalability than RIP. EIGRP uses bandwidth and delay as its metric, supports VLSM, and forms neighbor relationships for efficient route updates. It is ideal for medium to large enterprise networks and is Cisco proprietary.
