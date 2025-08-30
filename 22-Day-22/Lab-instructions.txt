@@ -62,7 +62,7 @@ R3(config)# interface FastEthernet0/0
 R3(config-if)# ip address 192.168.3.1 255.255.255.0
 R3(config-if)# no shutdown
 R3(config)# interface Serial0/0/0
-R3(config-if)# ip address 10.0.0.6 255.255.255.252
+R3(config-if)# ip address 11.0.0.2 255.0.0.0
 R3(config-if)# no shutdown
 
 
