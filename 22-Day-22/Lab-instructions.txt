@@ -45,17 +45,17 @@ R1(config)# interface FastEthernet0/0
 R1(config-if)# ip address 192.168.1.1 255.255.255.0
 R1(config-if)# no shutdown
 R1(config)# interface Serial0/0/0
-R1(config-if)# ip address 10.0.0.1 255.255.255.252
+R1(config-if)# ip address 10.0.0.1 255.0.0.0
 R1(config-if)# no shutdown
 R2:
 R2(config)# interface FastEthernet0/0
 R2(config-if)# ip address 192.168.2.1 255.255.255.0
 R2(config-if)# no shutdown
 R2(config)# interface Serial0/0/0
-R2(config-if)# ip address 10.0.0.2 255.255.255.252
+R2(config-if)# ip address 10.0.0.2 255.0.0.0
 R2(config-if)# no shutdown
 R2(config)# interface Serial0/0/1
-R2(config-if)# ip address 10.0.0.5 255.255.255.252
+R2(config-if)# ip address 11.0.0.1 255.0.0.0
 R2(config-if)# no shutdown
 R3:
 R3(config)# interface FastEthernet0/0
