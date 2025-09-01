@@ -82,10 +82,9 @@ R4(config-if)# no shutdown
 
 
 Step 4: Configure IP Addresses on PCs
-LAN 1 (PC1–PC3): IP Range: 192.168.1.10 – 192.168.1.12 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.1.1
-LAN 2 (PC4–PC6): IP Range: 192.168.2.10 – 192.168.2.12 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.2.1
-LAN 3 (PC7–PC9): IP Range: 192.168.3.10 – 192.168.3.12 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.3.1
-LAN 4 (PC10–PC12): IP Range: 192.168.10.10 – 192.168.10.12 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.10.1
+LAN 1 (PC1–PC5): IP Range: 192.168.1.10 – 192.168.1.14 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.1.1
+LAN 2 (PC6–PC10): IP Range: 192.168.2.10 – 192.168.2.14 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.2.1
+LAN 3 (PC11–PC15): IP Range: 192.168.3.10 – 192.168.3.14 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.3.1
 
 
 Step 5: Enable OSPF Routing Protocol (Multiple Areas)
