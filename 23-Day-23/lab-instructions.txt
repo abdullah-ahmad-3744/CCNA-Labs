@@ -90,10 +90,9 @@ LAN 3 (PC11–PC15): IP Range: 192.168.3.10 – 192.168.3.14 Subnet Mask: 255.25
 Step 5: Enable OSPF Routing Protocol (Multiple Areas)
 R1 (Backbone Area 0):
 R1(config)# router ospf 1
-R1(config-router)# network 192.168.10.0 0.0.0.255 area 0
-R1(config-router)# network 10.0.0.0 0.0.0.0 area 0
-R1(config-router)# network 11.0.0.0 0.0.0.0 area 0
-R1(config-router)# network 12.0.0.0 0.0.0.0 area 0
+R1(config-router)# network 10.0.0.0 0.0.0.255 area 0
+R1(config-router)# network 11.0.0.0 0.0.0.255 area 0
+R1(config-router)# network 12.0.0.0 0.0.0.255 area 0
 
 R2 (Area 1):
 R2(config)# router ospf 1
