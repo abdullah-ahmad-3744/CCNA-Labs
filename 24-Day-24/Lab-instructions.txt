@@ -49,9 +49,9 @@ R2(config-if)# no shutdown
 
 
 Step 4: Configure IP Addresses on PCs
-PC1: IP: 192.168.10.10 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.10.1
-PC2: IP: 192.168.10.20 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.10.1
-PC3: IP: 192.168.20.10 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.20.1
+PC1: IP: 192.168.1.10 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.1.1
+PC2: IP: 192.168.1.11 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.1.1
+PC3: IP: 192.168.2.10 Subnet Mask: 255.255.255.0 Default Gateway: 192.168.2.1
 
 
 Step 5: Configure Static Routing
