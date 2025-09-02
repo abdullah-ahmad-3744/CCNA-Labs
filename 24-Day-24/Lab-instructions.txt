@@ -63,11 +63,11 @@ R2(config)# ip route 192.168.10.0 255.255.255.0 10.0.0.1
 
 Step 6: Configure Standard ACL to Block PC1
 On R2:
-R2(config)# access-list 1 deny 192.168.10.10 0.0.0.0
+R2(config)# access-list 1 deny 192.168.1.1 0.0.0.0
 R2(config)# access-list 1 permit any
 R2(config)# interface Serial0/0/0
 R2(config-if)# ip access-group 1 in
-This configuration blocks all traffic from PC1 (192.168.10.10) inbound on R2’s Serial0/0/0 interface, while allowing all other traffic.
+This configuration blocks all traffic from PC1 (192.168.1.1) inbound on R2’s Serial0/0/0 interface, while allowing all other traffic.
 
 
 Step 7: Verify ACL Configuration
