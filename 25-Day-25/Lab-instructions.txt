@@ -1,0 +1,98 @@
+CCNA Day 25 Lab: Extended ACL Configuration — Allow Telnet, Block Ping
+
+
+Lab Objective:
+The objective of this lab is to configure an Extended Access Control List (ACL) to block ICMP (Ping) traffic from a specific network while allowing Telnet (TCP port 23) and all other permitted traffic. You will learn how to create, apply, and verify an Extended ACL, understand protocol and port filtering, and follow Cisco’s best‑practice placement rules. This lab builds your skills in granular traffic control based on source, destination, and protocol.
+
+
+
+Step-by-Step Instructions
+
+Step 1: Build the Topology in Packet Tracer
+Devices Required:
+2 Routers (R1, R2) — Cisco 2811
+3 PCs (PC1, PC2, PC3)
+2 Switches
+Serial & Ethernet cables
+
+
+Note: Power off both routers before adding WIC‑2T modules to enable Serial interfaces. After inserting the modules, power the routers back on so that Serial0/0/0 becomes available for configuration.
+
+Connections:
+PC1 and PC2 → Switch1 → R1 (FastEthernet0/0)
+PC3 → Switch2 → R2 (FastEthernet0/0)
+R1 (Serial0/0/0) ⟶ R2 (Serial0/0/0)
+
+
+Step 2: Configure Router Hostnames
+On R1:
+Router> enable
+Router# configure terminal
+Router(config)# hostname R1
+On R2:
+Router> enable
+Router# configure terminal
+Router(config)# hostname R2
+
+
+Step 3: Configure IP Addresses on Router Interfaces
+R1:
+R1(config)# interface FastEthernet0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# no shutdown
+R1(config)# interface Serial0/0/0
+R1(config-if)# ip address 10.0.0.1 255.0.0.0
+R1(config-if)# no shutdown
+R2:
+R2(config)# interface FastEthernet0/0
+R2(config-if)# ip address 192.168.2.1 255.255.255.0
+R2(config-if)# no shutdown
+R2(config)# interface Serial0/0/0
+R2(config-if)# ip address 10.0.0.2 255.0.0.0
+R2(config-if)# no shutdown
+
+
+Step 4: Configure IP Addresses on PCs
+PC1: IP: 192.168.1.10 | Subnet Mask: 255.255.255.0 | Default Gateway: 192.168.1.1
+PC2: IP: 192.168.1.11 | Subnet Mask: 255.255.255.0 | Default Gateway: 192.168.1.1
+PC3: IP: 192.168.2.10 | Subnet Mask: 255.255.255.0 | Default Gateway: 192.168.2.1
+
+
+Step 5: Configure Static Routing
+On R1:
+R1(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2
+On R2:
+R2(config)# ip route 192.168.1.0 255.255.255.0 10.0.0.1
+
+
+Step 6: Configure Extended ACL — Allow Telnet, Block Ping
+We will configure the ACL on R2, applied inbound on the Serial0/0/0 interface, to block ICMP from the 192.168.1.0/24 network but allow Telnet.
+On R2:
+R2(config)# access-list 100 deny icmp 192.168.1.0 0.0.0.255 any
+R2(config)# access-list 100 permit tcp 192.168.1.0 0.0.0.255 any eq 23
+R2(config)# access-list 100 permit ip any any
+R2(config)# interface Serial0/0/0
+R2(config-if)# ip access-group 100 in
+
+
+Explanation:
+deny icmp → Blocks all ping requests from the 192.168.1.0/24 network to any destination. 
+permit tcp eq 23 → Allows Telnet traffic from the same network. 
+permit ip any any → Allows all other traffic.
+
+
+Step 7: Verify ACL Configuration
+On R2:
+R2# show access-lists
+R2# show running-config | include access-group
+R2# show ip interface Serial0/0/0
+
+
+Step 8: Test Connectivity
+From PC1 → ping 192.168.2.10 → should fail
+From PC1 → telnet 192.168.2.10 → should succeed
+From PC2 → ping 192.168.2.10 → should fail
+From PC2 → telnet 192.168.2.10 → should succeed
+
+Final Notes:
+This lab demonstrates how Extended ACLs can filter traffic based on protocol type and port number, not just source IP. You’ve learned how to create, apply, and verify an Extended ACL that blocks ICMP while allowing Telnet, and why placing Extended ACLs close to the source is recommended to reduce unnecessary traffic across the network.
