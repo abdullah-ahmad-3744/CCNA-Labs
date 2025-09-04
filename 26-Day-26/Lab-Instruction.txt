@@ -68,11 +68,11 @@ Router2(config-if)# no shutdown
 
 Step 4: Configure IP Addresses on PCs
 Set static IPs and default gateways on each PC:
-PC1 IP address: 192.168.3.2 Subnet mask: 255.255.255.0 Default gateway: 192.168.3.1
-PC2 IP address: 192.168.1.130 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.129
-PC3 IP address: 192.168.1.131 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.129
-PC4 IP address: 192.168.1.2 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.1
-PC5 IP address: 192.168.1.3 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.1
+PC1 IP address: 192.168.1.10 Subnet mask: 255.255.255.0 Default gateway: 192.168.3.1
+PC2 IP address: 192.168.3.10 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.129
+PC3 IP address: 192.168.3.11 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.129
+PC4 IP address: 192.168.4.10 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.1
+PC5 IP address: 192.168.4.11 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.1
 
 
 
