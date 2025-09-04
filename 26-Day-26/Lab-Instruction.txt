@@ -47,21 +47,21 @@ Router1(config)# interface FastEthernet0/0
 Router1(config-if)# ip address 192.168.3.1 255.255.255.0
 Router1(config-if)# no shutdown
 
-Router1(config)# interface Serial0/0
+Router1(config)# interface Serial0/0/0
 Router1(config-if)# ip address 192.168.2.1 255.255.255.0
 Router1(config-if)# clock rate 64000
 Router1(config-if)# no shutdown
 
 On Router2:
 Router2(config)# interface FastEthernet0/0
-Router2(config-if)# ip address 192.168.1.129 255.255.255.128
+Router2(config-if)# ip address 192.168.3.1 255.255.255.0
 Router2(config-if)# no shutdown
 
 Router2(config)# interface FastEthernet0/1
-Router2(config-if)# ip address 192.168.1.1 255.255.255.128
+Router2(config-if)# ip address 192.168.4.1 255.255.255.0
 Router2(config-if)# no shutdown
 
-Router2(config)# interface Serial0/0
+Router2(config)# interface Serial0/0/0
 Router2(config-if)# ip address 192.168.2.2 255.255.255.0
 Router2(config-if)# no shutdown
 
