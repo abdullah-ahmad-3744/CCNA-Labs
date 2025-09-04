@@ -1,0 +1,184 @@
+CCNA Day 26 Lab: Extended ACL Configuration : Network to Network, Host to Host, Network to Host Filtering
+
+
+Lab Objective
+In this lab, you’ll configure and verify Extended Access Control Lists (ACLs) to control traffic between networks and hosts. You’ll work through three scenarios:
+Allowing traffic between specific subnets
+Blocking communication between individual hosts
+Denying access from a network to a specific host
+
+You’ll also learn how to apply ACLs using Cisco’s best-practice placement rules and verify their behavior using CLI commands and connectivity tests.
+
+
+
+Step-by-Step Instructions
+Step 1: Build the Topology in Packet Tracer
+Devices Required:
+2 Routers (Router1, Router2)
+3 Switches
+5 PCs (PC1–PC5)
+Serial & Ethernet cables
+Connections Overview:
+PC1 connects to Router1 via Switch1 (Fa0/0)
+PC2 and PC3 connect to Router2 via Switch2 (Fa0/0)
+PC4 and PC5 connect to Router2 via Switch3 (Fa0/1)
+Router1 and Router2 are connected via Serial0/0 interfaces
+
+
+
+Step 2: Configure Router Hostnames
+Start by naming your routers to keep the CLI organized.
+On Router1:
+Router> enable
+Router# configure terminal
+Router(config)# hostname Router1
+On Router2:
+Router> enable
+Router# configure terminal
+Router(config)# hostname Router2
+
+
+
+Step 3: Configure IP Addresses on Router Interfaces
+Assign IP addresses to each router interface based on the topology.
+
+On Router1:
+Router1(config)# interface FastEthernet0/0
+Router1(config-if)# ip address 192.168.3.1 255.255.255.0
+Router1(config-if)# no shutdown
+
+Router1(config)# interface Serial0/0
+Router1(config-if)# ip address 192.168.2.1 255.255.255.0
+Router1(config-if)# clock rate 64000
+Router1(config-if)# no shutdown
+
+On Router2:
+Router2(config)# interface FastEthernet0/0
+Router2(config-if)# ip address 192.168.1.129 255.255.255.128
+Router2(config-if)# no shutdown
+
+Router2(config)# interface FastEthernet0/1
+Router2(config-if)# ip address 192.168.1.1 255.255.255.128
+Router2(config-if)# no shutdown
+
+Router2(config)# interface Serial0/0
+Router2(config-if)# ip address 192.168.2.2 255.255.255.0
+Router2(config-if)# no shutdown
+
+
+Step 4: Configure IP Addresses on PCs
+Set static IPs and default gateways on each PC:
+PC1 IP address: 192.168.3.2 Subnet mask: 255.255.255.0 Default gateway: 192.168.3.1
+PC2 IP address: 192.168.1.130 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.129
+PC3 IP address: 192.168.1.131 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.129
+PC4 IP address: 192.168.1.2 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.1
+PC5 IP address: 192.168.1.3 Subnet mask: 255.255.255.128 Default gateway: 192.168.1.1
+
+
+
+Step 5: Configure RIPv2 Routing
+Enable dynamic routing so both routers can learn each other’s networks.
+
+On Router1:
+Router1(config)# router rip
+Router1(config-router)# version 2
+Router1(config-router)# network 192.168.3.0
+Router1(config-router)# network 192.168.2.0
+
+On Router2:
+
+Router2(config)# router rip
+Router2(config-router)# version 2
+Router2(config-router)# network 192.168.1.0
+Router2(config-router)# network 192.168.2.0
+
+
+Step 6: Verify Routing
+Check that both routers have learned all networks.
+Router1# show ip route
+Router2# show ip route
+
+
+Step 7: Configure Extended ACL 100 — Network-to-Network Filtering
+Allow traffic from the Administration subnet (192.168.1.0/25) to the Corporate HQ subnet (192.168.3.0/24). Apply the ACL outbound on Router1’s Fa0/0 interface.
+
+On Router1:
+Router1(config)# access-list 100 permit ip 192.168.1.0 0.0.0.127 192.168.3.0 0.0.0.255 log
+Router1(config)# interface FastEthernet0/0
+Router1(config-if)# ip access-group 100 out
+
+
+Step 8: Verify ACL 100
+Use these commands to confirm the ACL is applied and logging matches.
+Router1# show ip interface FastEthernet0/0
+Router1# show access-lists
+
+
+Step 9: Test ACL 100 Behavior
+PC2 and PC3 (Network Users) should be blocked from accessing PC1
+PC4 and PC5 (Administration) should be allowed to access PC1
+
+
+
+Step 10: Remove ACL 100
+Remove the ACL from the interface to prepare for the next scenario.
+Router1(config)# interface FastEthernet0/0
+Router1(config-if)# no ip access-group 100 out
+
+
+
+Step 11: Configure Extended ACL 101 — Host-to-Host Filtering
+Block PC2 (192.168.1.130) from accessing PC5 (192.168.1.3). Apply the ACL inbound on Router2’s Fa0/0 interface.
+
+On Router2:
+Router2(config)# access-list 101 deny ip host 192.168.1.130 host 192.168.1.3 log
+Router2(config)# access-list 101 permit ip any any
+Router2(config)# interface FastEthernet0/0
+Router2(config-if)# ip access-group 101 in
+
+
+
+Step 12: Verify ACL 101
+Check ACL placement and match logs.
+Router2# show ip interface FastEthernet0/0
+Router2# show access-lists
+
+
+
+Step 13: Test ACL 101 Behavior
+PC2 should be blocked from accessing PC5
+PC3 should be allowed to access PC5
+
+
+Step 14: Remove ACL 101
+Clear the ACL from the interface.
+Router2(config)# interface FastEthernet0/0
+Router2(config-if)# no ip access-group 101 in
+
+
+
+Step 15: Configure Extended ACL 102 — Network-to-Host Filtering
+Block all traffic from Network Users (192.168.1.128/25) to PC1 (192.168.3.2). Apply the ACL inbound on Router2’s Fa0/0 interface.
+
+On Router2:
+Router2(config)# access-list 102 deny ip 192.168.1.128 0.0.0.127 host 192.168.3.2 log
+Router2(config)# access-list 102 permit ip any any
+Router2(config)# interface FastEthernet0/0
+Router2(config-if)# ip access-group 102 in
+
+
+Step 16: Verify ACL 102
+Confirm ACL placement and log entries.
+Router2# show ip interface FastEthernet0/0
+Router2# show access-lists
+
+
+
+Step 17: Test ACL 102 Behavior
+PC2 and PC3 should be blocked from accessing PC1
+PC4 and PC5 should be allowed to access PC1
+
+
+
+Final Summary
+This lab demonstrated the practical application of Extended Access Control Lists (ACLs) to enforce precise traffic filtering across a multi-subnet network. By configuring ACLs for network-to-network, host-to-host, and network-to-host scenarios, we implemented targeted restrictions while maintaining authorized communication. Key concepts such as wildcard masking, interface direction, and protocol-specific filtering were reinforced through hands-on CLI validation. The lab successfully showcased how ACLs can be used to design secure, policy-driven network environments—an essential skill for any CCNA-level professional.
