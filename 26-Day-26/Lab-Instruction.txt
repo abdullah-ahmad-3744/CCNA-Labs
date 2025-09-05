@@ -100,18 +100,18 @@ Router2# show ip route
 
 
 Step 7: Configure Extended ACL 100 — Network-to-Network Filtering
-Allow traffic from the Administration subnet (192.168.1.0/25) to the Corporate HQ subnet (192.168.3.0/24). Apply the ACL outbound on Router1’s Fa0/0 interface.
+Allow traffic from the Administration subnet (192.168.1.0/25) to the Corporate HQ subnet (192.168.3.0/24). Apply the ACL outbound on Router2’s Fa0/0 interface.
 
-On Router1:
-Router1(config)# access-list 100 permit ip 192.168.1.0 0.0.0.127 192.168.3.0 0.0.0.255 log
-Router1(config)# interface FastEthernet0/0
-Router1(config-if)# ip access-group 100 out
+On Router2:
+Router2(config)# access-list 100 deny ip 192.168.3.0 0.0.0.255 192.168.3.0 0.0.0.255
+Router2(config)# interface FastEthernet0/0
+Router2(config-if)# ip access-group 100 in
 
 
 Step 8: Verify ACL 100
 Use these commands to confirm the ACL is applied and logging matches.
-Router1# show ip interface FastEthernet0/0
-Router1# show access-lists
+Router2# show ip interface FastEthernet0/0
+Router2# show access-lists
 
 
 Step 9: Test ACL 100 Behavior
