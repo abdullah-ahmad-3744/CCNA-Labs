@@ -161,7 +161,7 @@ Step 15: Configure Extended ACL 102 — Network-to-Host Filtering
 Block all traffic from Network Users (192.168.3.1/25) to PC1 (192.168.3.2). Apply the ACL inbound on Router2’s Fa0/0 interface.
 
 On Router2:
-Router2(config)# access-list 102 deny ip 192.168.3.1 0.0.0.255 192.168.3.2 0.0.0.0
+Router2(config)# access-list 102 deny ip 192.168.3.0 0.0.0.255 192.168.3.2 0.0.0.0
 Router2(config)# access-list 102 permit ip any any
 Router2(config)# interface FastEthernet0/0
 Router2(config-if)# ip access-group 102 in
