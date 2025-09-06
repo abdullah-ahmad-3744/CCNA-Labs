@@ -1,0 +1,107 @@
+CCNA Day 27 Lab: EIGRP Routing Configuration and Verification
+
+
+Lab Objective
+The objective of this lab is to configure EIGRP (Enhanced Interior Gateway Routing Protocol) across a multi-router topology. You will connect twelve routers in a serial chain, assign IP addresses using a structured subnet scheme, configure loopback interfaces, and enable EIGRP to dynamically share routes. This lab will strengthen your understanding of EIGRP neighbor relationships, autonomous system numbers, route propagation, and how to control summarization and update behavior.
+
+
+
+Step-by-Step Instructions
+Step 1: Build the Topology in Packet Tracer
+Devices Required:
+12 Routers (Cisco 2811 or similar, with serial interfaces)
+Serial cables (DCE/DTE as appropriate)
+Ethernet cables (for loopback simulation if needed)
+Connections (Serial Links):
+R1 (S0/0/0) ⟶ R2 (S0/0/0) — 192.168.1.x/24
+R2 (S0/0/1) ⟶ R3 (S0/0/0) — 192.168.2.x/24
+R3 (S0/0/1) ⟶ R4 (S0/0/0) — 192.168.3.x/24
+R4 (S0/0/1) ⟶ R5 (S0/0/0) — 192.168.4.x/24
+R5 (S0/0/1) ⟶ R6 (S0/0/0) — 192.168.4.x/24
+R6 (S0/0/1) ⟶ R7 (S0/0/0) — 192.168.5.x/24
+R7 (S0/0/1) ⟶ R8 (S0/0/0) — 192.168.6.x/24
+R8 (S0/0/1) ⟶ R9 (S0/0/0) — 192.168.7.x/24
+R9 (S0/0/1) ⟶ R10(S0/0/0) — 192.168.8.x/24
+R10 (S0/0/1) ⟶R11(S0/0/0) — 192.168.9.x/24
+R11 (S0/0/1) ⟶R12(S0/0/0) — 192.168.10.x/24
+
+
+Note: Power off routers before adding WIC-2T modules for serial connections, then power them back on.
+
+
+Step 2: Configure Router Hostnames
+Example for R1:
+Router> enable
+Router# configure terminal
+Router(config)# hostname R1
+Repeat for R2–R12, changing the hostname accordingly.
+
+
+
+Step 3: Configure IP Addresses on Serial Interfaces
+Example for R1:
+R1(config)# interface Serial0/0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# clock rate 64000   (if DCE)
+R1(config-if)# no shutdown
+
+
+Example for R2 (two serial links):
+R2(config)# interface Serial0/0/0
+R2(config-if)# ip address 192.168.1.2 255.255.255.0
+R2(config-if)# no shutdown
+R2(config)# interface Serial0/0/1
+R2(config-if)# ip address 192.168.2.1 255.255.255.0
+R2(config-if)# no shutdown
+Continue assigning IPs for all routers according to the subnet scheme above.
+
+
+
+Step 4: Configure Loopback Interfaces
+Each router gets a loopback with the format Y.Y.Y.Y/24, where Y = router number. Example for R4:
+R4(config)# interface loopback0
+R4(config-if)# ip address 4.4.4.4 255.255.255.0
+Repeat for all routers (R1 = 1.1.1.1, R2 = 2.2.2.2, etc.).
+
+
+
+Step 5: Enable EIGRP Routing Protocol
+Use an Autonomous System (AS) number of your choice (e.g., 100). Example for R1:
+R1(config)# router eigrp 100
+R1(config-router)# network 192.168.1.0 0.0.0.255
+R1(config-router)# network 1.1.1.0 0.0.0.255
+R1(config-router)# no auto-summary
+
+Example for R2:
+R2(config)# router eigrp 100
+R2(config-router)# network 192.168.1.0 0.0.0.255
+R2(config-router)# network 192.168.2.0 0.0.0.255
+R2(config-router)# network 2.2.2.0 0.0.0.255
+R2(config-router)# no auto-summary
+Repeat for all routers, including their serial and loopback networks.
+
+
+
+Step 6: Prevent EIGRP Updates on Unnecessary Interfaces
+If an interface does not connect to another EIGRP router (e.g., a LAN to PCs), use:
+R1(config-router)# passive-interface FastEthernet0/0
+
+
+Step 7: Verify Routing Tables
+On all routers:
+R1# show ip route
+You should see EIGRP-learned routes marked with a D code.
+
+
+
+Step 8: Test Connectivity
+From R1:
+R1# ping 12.12.12.12
+(Loopback of R12) From R5:
+R5# ping 9.9.9.9
+Expected Result: All pings succeed if EIGRP is correctly configured.
+
+
+
+Final Notes
+This lab simulates a large-scale EIGRP deployment across multiple routers. It demonstrates how EIGRP dynamically shares routes, how to disable automatic summarization, and how to control update propagation for efficiency and security.
